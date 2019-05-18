@@ -25,7 +25,7 @@ class Modem {
 		std::string get_index();
 
 
-		std::bool send_sms(string message, string phonenumber);
+		std::bool send_sms(std::string message, std::string phonenumber);
 };
 
 #endif
