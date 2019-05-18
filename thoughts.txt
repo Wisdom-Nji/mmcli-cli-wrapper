@@ -1,0 +1,2 @@
+- know modem states (daemon) - used for logging when modems have been removed and put back
+- 
