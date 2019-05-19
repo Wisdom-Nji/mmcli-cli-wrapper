@@ -25,7 +25,7 @@ class Modem {
 		std::string get_index();
 
 
-		std::bool send_sms(std::string message, std::string phonenumber);
+		bool send_sms(std::string message, std::string phonenumber);
 };
 
 #endif
@@ -41,8 +41,11 @@ Modem::Modem(std::string modem_index) {
 
 
 
-std::bool send_sms(std::string message, std::string phonenumber) {
-
+bool Modem::send_sms(std::string message, std::string phonenumber) {
+	message = "\"" + message + "\"";
+	std::string send_sms = "scripts/modem_information_extraction.sh sms send " + message + " " + phonenumber + " " + this->index;
+	//std::cout << "__tmp_send_sms_cmd: " << send_sms << std::endl;
+	return !modem::terminal::run(send_sms).empty();
 }
 
 void Modem::extract_modem_information() {
