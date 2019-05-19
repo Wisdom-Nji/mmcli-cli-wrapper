@@ -26,8 +26,6 @@ class Modem {
 
 
 		bool send_sms(std::string message, std::string phonenumber);
-
-
 		bool scan();
 };
 
