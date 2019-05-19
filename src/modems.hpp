@@ -26,6 +26,9 @@ class Modem {
 
 
 		bool send_sms(std::string message, std::string phonenumber);
+
+
+		bool scan();
 };
 
 #endif
@@ -37,6 +40,18 @@ Modem::Modem(std::string modem_index) {
 	this->index = modem_index;
 
 	this->extract_modem_information();
+}
+
+
+bool Modem::scan() {
+	vector<Modem> list_of_modems = get_all_modems();
+	for(auto modem: list_of_modems) {
+		if(modem.e_id == this->e_id) {
+			this->index = modem.index;
+			return true;
+		}
+	}
+	return false;
 }
 
 
