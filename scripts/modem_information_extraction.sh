@@ -37,6 +37,13 @@ elif [ "$1" == "sms" ] ; then
 		if [ ! -z "$output" ] ; then 
 			echo "$output"
 		fi
+	elif [ "$_type" == "read_sms" ] ; then
+		modem_index=$4
+		message_index=$3
+
+		message_number=$( mmcli -m 8 --sms 188 | grep number | grep -oe "[+0-9]*" )
+		message_text=$( mmcli -m 8 --sms 188 | grep text | grep -oe ": [a-zA-Z0-9\W :<=?]*" | cut -b 3- )
+		echo -e "message_number\n$message_text"
 
 	fi
 fi
