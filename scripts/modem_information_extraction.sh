@@ -1,6 +1,10 @@
 #!/bin/bash
 
 
+#man-page says using the -K command would make the data more developer friends (key->value)
+#SHOULD HAVE READ THIS FROM THE START... WOULD REFACTOR ALL THIS TO REFLECT THAT
+
+
 #check for available modems
 if [ "$1" == "list" ] ; then
 	mmcli -L | grep -oP "[/\s][0-9]." | cut -b 2-
