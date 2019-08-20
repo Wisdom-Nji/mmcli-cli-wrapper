@@ -13,7 +13,7 @@ elif [ "$1" == "extract" ] ; then
 	elif [ "$_command" == "sig_qual" ] ; then
 		mmcli -m $modem_index 2>&1 | grep "signal quality" | grep -oe "[0-9]*"
 	elif [ "$_command" == "op_name" ] ; then
-		mmcli -m $modem_index 2>&1 | grep "operator name" | grep -oe "'[a-zA-Z]*'" | grep -oe "\w[a-zA-Z]*"
+		mmcli -m 8 | grep "operator name" | grep -oe ": [a-zA-Z]*" | grep -oe "[a-zA-Z]*"
 	fi
 
 elif [ "$1" == "sms" ] ; then
@@ -27,6 +27,16 @@ elif [ "$1" == "sms" ] ; then
 		sms_index=$( echo $output | grep -oe "[/\s][0-9]." | cut -b 2- )
 		if [ $(mmcli -m $modem_index -s $sms_index --send > /dev/null 2>&1) ] ; then
 			echo sent
+		else
+			echo "Not sent"
 		fi
+	elif [ "$_type" == "received" ] ; then
+		modem_index=$3
+
+		output=$( mmcli -m $modem_index --messaging-list-sms | grep -oe "[0-9]* (received)" | grep -oe "[0-9]*" )
+		if [ ! -z "$output" ] ; then 
+			echo "$output"
+		fi
+
 	fi
 fi
