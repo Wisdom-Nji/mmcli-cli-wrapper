@@ -41,9 +41,9 @@ elif [ "$1" == "sms" ] ; then
 		modem_index=$4
 		message_index=$3
 
-		message_number=$( mmcli -m 8 --sms 188 | grep number | grep -oe "[+0-9]*" )
-		message_text=$( mmcli -m 8 --sms 188 | grep text | grep -oe ": [a-zA-Z0-9\W :<=?]*" | cut -b 3- )
-		echo -e "message_number\n$message_text"
+		message_number=$( mmcli -m $modem_index --sms $message_index| grep number | grep -oe "[+0-9]*" )
+		message_text=$( mmcli -m $modem_index --sms $message_index | grep text | grep -oe ": [a-zA-Z0-9\W :<=?]*" | cut -b 3- )
+		echo -e "$message_number\n$message_text"
 
 	fi
 fi
